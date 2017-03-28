@@ -13,6 +13,8 @@ Google Group for discussions, support, advice etc: [http://groups.google.co.uk/g
 	   
 ## Using qewd-transform-json
 
+### Simple Transformations
+
   *qewd-transform-json* is a simple, yet powerful way of transforming JSON from one format to another.
 
   It takes an input JavaScript object, and transforms it to a new output JavaScript object, using 
@@ -37,9 +39,13 @@ Google Group for discussions, support, advice etc: [http://groups.google.co.uk/g
       var templateObj = {
         a: '{{foo.bar1}}',
         b: {
-          c: '{{foo.bar2}}'
+          c: '{{foo.bar2}}',
+          d: 'literal text'
         }
       };
+
+  Note the *d* property in the template above is defined as literal text without any curly braces,
+  so the literal text value will be used in the output object as a fixed value.
 
   The module's *transform()* function is then used to create the output object, eg
 
@@ -51,9 +57,13 @@ Google Group for discussions, support, advice etc: [http://groups.google.co.uk/g
       {
         "a": "hello",
         "b": {
-          "c": "world"
+          "c": "world",
+          "d": "literal text"
         }
       }
+
+### Substituting Arrays
+
 
   You can also specify that the output object is to contain an array which is mapped from some 
   array within the input object.  For example, suppose the input object is:
@@ -192,6 +202,128 @@ The output object created from this transformation would be:
       }
 
 
+### Applying Your Own Custom Transformation Functions
+
+Often you'll want to be able to perform more complex transformations that you'll want to 
+define.  For example, you might want to convert the date format from that used in the input
+object.  To do this, you first define your function, eg:
+
+      var myFn = function(input) {
+          return 'xxxxxx ' + input + ' yyyyyyy ';
+      };
+
+Then use the following syntax in the template:
+
+     property: => myFn(foo.bar1),
+
+This tells the transformer to apply your myFn() function to the foo.bar1 property from the input object.
+
+Finally, you add a third argument to the transform() function, through which you pass your custom
+function, eg:
+
+      var newObj = transform(templateObj, inputObj, {myFn});
+
+You may pass as many custom functions as you wish via this third argument.
+
+So, for example:
+
+      var myFn = function(input) {
+          return 'xxxxxx ' + input + ' yyyyyyy';
+      };
+
+      var inputObj = {
+        foo: {
+          bar1: 'hello',
+          bar2: 'world' 
+        },
+        arr: [
+          {
+            name: 'Rob',
+            city: 'London'
+          },
+          {
+            name: 'Chris',
+            city: 'Oxford'
+          },
+        ] 
+      };
+
+      var templateObj = {
+        a: '{{foo.bar1}}',
+        b: {
+          c: '{{foo.bar2}}',
+          d: 'literal text',
+          e: '=> myFn(foo.bar2)'
+        },
+        people: [
+          '{{arr}}',
+          {
+            firstName: '{{name}}'
+          }
+        ]
+      };
+
+      var newObj = transform(templateObj, inputObj, {myFn});
+
+will create the following output object:
+
+      {
+        "a": "hello",
+        "b": {
+          "c": "world",
+          "d": "literal text",
+          "e": "xxxxxx world yyyyyyy"
+        },
+        "people": [
+          {
+            "firstName": "Rob"
+          },
+          {
+            "firstName": "Chris"
+          }
+        ]
+      }
+
+
+You can even define functions that use more than one input argument, eg:
+
+      var myFn = function(input, input2) {
+          return 'xxxxxx ' + input + ' yyyyyyy ' + input2 + ' zzzzz';
+      };
+
+      var templateObj = {
+        a: '{{foo.bar1}}',
+        b: {
+          c: '{{foo.bar2}}',
+          d: 'literal text',
+          e: '=> myFn(foo.bar2, foo.bar1)'
+        },
+        people: [
+          '{{arr}}',
+          {
+            firstName: '{{name}}'
+          }
+        ]
+      };
+
+This would produce the following output object:
+
+      {
+        "a": "hello",
+        "b": {
+          "c": "world",
+          "d": "literal text",
+          "e": "xxxxxx world yyyyyyy hello zzzzz"
+        },
+        "people": [
+          {
+            "firstName": "Rob"
+          },
+          {
+            "firstName": "Chris"
+          }
+        ]
+      }
 
 
 ## License
