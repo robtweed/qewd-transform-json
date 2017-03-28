@@ -1,6 +1,6 @@
 {
   "name": "qewd-transform-json",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Module for transforming JSON via a template",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/robtweed/qewd-transform-json.git"
   },
   "dependencies": {
-    "traverse": "",
+    "traverse": ""
   },
   "author": "Rob Tweed, M/Gateway Developments Ltd",
   "license": "Apache-2.0",
