@@ -104,13 +104,13 @@ Google Group for discussions, support, advice etc: [http://groups.google.co.uk/g
 
   *people* is defined as an array, containing two elements:
 
-    - the first defines the array property to use within the input object.  In our case we want to use
+  - the first defines the array property to use within the input object.  In our case we want to use
       input.arr, so we just specify {{arr}}.
 
-    - the second, if present, specifies the template object to apply for each people element.  This can be as
+  - the second, if present, specifies the template object to apply for each people element.  This can be as
       simple or as complex as you like, and can define lower-level arrays if required.
 
-    - if the second element isn't defined, the array specified in the first element is copied
+  - if the second element isn't defined, the array specified in the first element is copied
       directly into the output property.
 
   The output object created from the example above would now look like this:
@@ -214,7 +214,10 @@ object.  To do this, you first define your function, eg:
 
 Then use the following syntax in the template:
 
-     property: => myFn(foo.bar1),
+     property: '=> myFn(foo.bar1)',
+
+*Note that the value must be quoted, to ensure that it's
+a valid object-literal property value, despite its special syntax.  Spaces in the value will be ignored.*
 
 This tells the transformer to apply your myFn() function to the foo.bar1 property from the input object.
 
