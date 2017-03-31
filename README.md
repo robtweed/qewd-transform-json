@@ -104,11 +104,22 @@ Google Group for discussions, support, advice etc: [http://groups.google.co.uk/g
 
   *people* is defined as an array, containing two elements:
 
-  - the first defines the array property to use within the input object.  In our case we want to use
+  - the first element defines the array property to use within the input object.  In our case we want to use
       input.arr, so we just specify {{arr}}.
 
-  - the second, if present, specifies the template object to apply for each people element.  This can be as
-      simple or as complex as you like, and can define lower-level arrays if required.
+  - the second element, if present, specifies the template object to create as each element of the output
+    array.  
+    Note that the input object properties you specify in the mappings are relative to the input 
+    object's parent array 
+    that you specified in the first element above.  So, in the example above, they are relative to the 
+    input object's *{{arr}}* array.
+    Hence, for the output object's *firstName* property, you merely specify *{{name}}*, which tells 
+    the transformer to use the
+    *name* property from each array element within the input object's *{{arr}} array.
+
+    The template array object can be as
+      simple or as complex as you like, and can define lower-level arrays and/or objects if required.
+
 
   - if the second element isn't defined, the array specified in the first element is copied
       directly into the output property.
@@ -132,6 +143,8 @@ Google Group for discussions, support, advice etc: [http://groups.google.co.uk/g
 
 
   Here's a more complex example:
+
+      // input object:
 
       var inputObj = {
         foo: {
@@ -157,6 +170,8 @@ Google Group for discussions, support, advice etc: [http://groups.google.co.uk/g
           ]
         } 
       };
+
+      // template object:
 
       var templateObj = {
         a: '{{foo.bar1}}',
