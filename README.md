@@ -15,10 +15,13 @@ Google Group for discussions, support, advice etc: [http://groups.google.co.uk/g
 
 ### Simple Transformations
 
-  *qewd-transform-json* is a simple, yet powerful way of transforming JSON from one format to another.
+  *qewd-transform-json* is a simple, yet powerful way of transforming JSON from one format to another. 
 
-  It takes an input JavaScript object, and transforms it to a new output JavaScript object, using 
-  rules defined in a template object.  
+  The use case for which it's designed is where you're doing repetitive processing that involves 
+  instances of a particular JSON document format being converted into some other JSON format.
+
+  *qewd-transform-json* takes an instance of an input JavaScript object, and transforms it to a new output
+  JavaScript object, using rules defined in a template object.  
 
   For example, the input object might look like this:
 
@@ -29,8 +32,9 @@ Google Group for discussions, support, advice etc: [http://groups.google.co.uk/g
         }
       };
 
-  The template object defines the structure of the new output object, and you define the value of
-  each of its leaf nodes in terms of an input object reference.
+  The important feature of the template object is that it defines the structure of the new output object, 
+  as well as defining the value of each of its leaf nodes in terms of the input JSON document's
+  property paths.
 
   Each element within the input object that is to be used as the value for an output object element is
   specified within the template as a quoted string, within which the value is inside double curly braces.
