@@ -44,12 +44,16 @@ Google Group for discussions, support, advice etc: [http://groups.google.co.uk/g
         a: '{{foo.bar1}}',
         b: {
           c: '{{foo.bar2}}',
-          d: 'literal text'
+          d: 'literal text',
+          e: 'hello {{foo.bar2}} again'
         }
       };
 
   Note the *d* property in the template above is defined as literal text without any curly braces,
   so the literal text value will be used in the output object as a fixed value.
+
+  Note also the *e* property in the template, showing how an input path reference can be
+  embedded inside other literal text.
 
   The module's *transform()* function is then used to create the output object, eg
 
@@ -62,7 +66,8 @@ Google Group for discussions, support, advice etc: [http://groups.google.co.uk/g
         "a": "hello",
         "b": {
           "c": "world",
-          "d": "literal text"
+          "d": "literal text",
+          "e": "hello world again"
         }
       }
 
@@ -223,9 +228,20 @@ The output object created from this transformation would be:
 
 ### Applying Your Own Custom Transformation Functions
 
-Often you'll want to be able to perform more complex transformations that you'll want to 
-define.  For example, you might want to convert the date format from that used in the input
-object.  To do this, you first define your function, eg:
+Often you'll want to be able to perform more complex transformations.
+
+The transform module contains three pre-defined functions that you may find useful:
+
+- **either(path, defaultValue)**  If the path doesn't exist or contains an empty string value in the
+  input object, then the literal string defined as the default value is used instead
+
+- **getDate(path)**  If path is not defined (ie getDate() ), then the current date/time is returned in
+  JavaScript date string format.  
+
+- **getTime(path)** Uses the value of the specified input object path as a date, and returns it in getTime()
+  format.
+
+You can also define your own functions, eg:
 
       var myFn = function(input) {
           return 'xxxxxx ' + input + ' yyyyyyy ';
@@ -240,12 +256,15 @@ a valid object-literal property value, despite its special syntax.  Spaces in th
 
 This tells the transformer to apply your myFn() function to the foo.bar1 property from the input object.
 
-Finally, you add a third argument to the transform() function, through which you pass your custom
-function, eg:
+Finally, if you've defined your own custom function, you add a third argument to the transform() function, 
+through which you pass your custom function, eg:
 
       var newObj = transform(templateObj, inputObj, {myFn});
 
 You may pass as many custom functions as you wish via this third argument.
+
+Of course, this third argument isn't needed if you want to use any of the built-in functions.
+
 
 So, for example:
 
@@ -256,17 +275,17 @@ So, for example:
       var inputObj = {
         foo: {
           bar1: 'hello',
-          bar2: 'world' 
+          bar2: 'world',
+          date: '2017-04-04'
         },
         arr: [
           {
-            name: 'Rob',
             city: 'London'
           },
           {
             name: 'Chris',
             city: 'Oxford'
-          },
+          }
         ] 
       };
 
@@ -275,12 +294,15 @@ So, for example:
         b: {
           c: '{{foo.bar2}}',
           d: 'literal text',
-          e: '=> myFn(foo.bar2)'
+          e: '=> myFn(foo.bar2)',
+          f: '=> either(foo.bar3, "foobar3!")',
+          now: '=> getDate()',
+          time: '=> getTime(foo.date)'
         },
         people: [
           '{{arr}}',
           {
-            firstName: '{{name}}'
+            firstName: '=> either(name, "Rob")'
           }
         ]
       };
@@ -294,7 +316,10 @@ will create the following output object:
         "b": {
           "c": "world",
           "d": "literal text",
-          "e": "xxxxxx world yyyyyyy"
+          "e": "xxxxxx world yyyyyyy",
+          "f": "foobar3!",
+          "now": "2017-04-04T17:14:20.266Z",
+          "time": 1491264000000
         },
         "people": [
           {
