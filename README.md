@@ -7,6 +7,9 @@ Twitter: @rtweed
 
 Google Group for discussions, support, advice etc: [http://groups.google.co.uk/group/enterprise-web-developer-community](http://groups.google.co.uk/group/enterprise-web-developer-community)
 
+Special thanks to the Ripple Foundation [http://rippleosi.org  ](http://rippleosi.org) for
+support and funding of this project.
+
 ## Installing
 
        npm install qewd-transform-JSON
