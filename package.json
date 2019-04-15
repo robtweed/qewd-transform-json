@@ -1,6 +1,6 @@
 {
   "name": "qewd-transform-json",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "Module for transforming JSON via a template",
   "main": "index.js",
   "scripts": {
