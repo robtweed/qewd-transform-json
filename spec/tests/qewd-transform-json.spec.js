@@ -204,29 +204,29 @@ describe('tests/qewd-transform-json:', () => {
     expect(actual).toEqual(expected);
   });
 
-  xit('transform array (as is)', () => {
-    const expected = {
-      foo: [
-        { baz: 'value1' },
-        { baz: 'value2' }
-      ]
-    };
+  // xit('transform array (as is)', () => {
+  //   const expected = {
+  //     foo: [
+  //       { baz: 'value1' },
+  //       { baz: 'value2' }
+  //     ]
+  //   };
 
-    const template = {
-      foo: [
-        '{{bar}}'
-      ]
-    };
-    const data = {
-      bar: [
-        { baz: 'value1' },
-        { baz: 'value2' }
-      ]
-    };
-    const actual = transform(template, data);
+  //   const template = {
+  //     foo: [
+  //       '{{bar}}'
+  //     ]
+  //   };
+  //   const data = {
+  //     bar: [
+  //       { baz: 'value1' },
+  //       { baz: 'value2' }
+  //     ]
+  //   };
+  //   const actual = transform(template, data);
 
-    expect(actual).toEqual(expected);
-  });
+  //   expect(actual).toEqual(expected);
+  // });
 
   it('transform with array (data not array)', () => {
     const expected = {

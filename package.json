@@ -27,6 +27,9 @@
     "all": true,
     "include": [
       "lib/**/*.js"
+    ],
+    "exclude": [
+      "lib/test.js"
     ]
   },
   "dependencies": {
