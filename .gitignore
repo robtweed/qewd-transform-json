@@ -1,0 +1,18 @@
+# Mac OS X
+.DS_Store
+
+# Env vars
+.env*
+!.env.example
+
+# Node.js
+npm-debug.log
+node_modules
+yarn.lock
+
+# Sublime Text
+*.sublime-*
+
+# Coverage
+.nyc_output
+coverage
