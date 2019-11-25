@@ -12,7 +12,7 @@ support and funding of this project.
 
 ## Installing
 
-       npm install qewd-transform-JSON
+       npm install qewd-transform-json
 	   
 ## Using qewd-transform-json
 
