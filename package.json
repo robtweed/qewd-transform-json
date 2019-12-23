@@ -3,20 +3,44 @@
   "version": "1.11.0",
   "description": "Module for transforming JSON via a template",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "author": "Rob Tweed, M/Gateway Developments Ltd",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/robtweed/qewd-transform-json.git"
   },
-  "dependencies": {
-    "traverse": ""
-  },
-  "author": "Rob Tweed, M/Gateway Developments Ltd",
-  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/robtweed/qewd-transform-json/issues"
   },
-  "homepage": "https://github.com/robtweed/qewd-transform-json#readme"
+  "homepage": "https://github.com/robtweed/qewd-transform-json#readme",
+  "scripts": {
+    "lint": "eslint spec --fix",
+    "test": "jasmine --config=spec/support/jasmine.json",
+    "coverage": "nyc --reporter=html --reporter=text jasmine --config=spec/support/jasmine.json",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
+  "nyc": {
+    "all": true,
+    "include": [
+      "lib/**/*.js"
+    ],
+    "exclude": [
+      "lib/test.js"
+    ]
+  },
+  "dependencies": {
+    "traverse": "^0.6.6"
+  },
+  "devDependencies": {
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
+    "jasmine": "^3.4.0",
+    "jasmine-spec-reporter": "^4.2.1",
+    "nyc": "^14.0.0",
+    "pre-commit": "^1.2.2"
+  }
 }
