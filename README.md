@@ -1,7 +1,7 @@
 # qewd-transform-JSON: Transform JSON using a template
  
 Rob Tweed <rtweed@mgateway.com>  
-25 January 2017, M/Gateway Developments Ltd [http://www.mgateway.com](http://www.mgateway.com)  
+24 May 2023, MGateway Ltd [https://www.mgateway.com](https://www.mgateway.com)  
 
 Twitter: @rtweed
 
@@ -378,11 +378,11 @@ This would produce the following output object:
 
 ## License
 
- Copyright (c) 2017 M/Gateway Developments Ltd,                           
+ Copyright (c) 2023 MGateway Ltd,                           
  Redhill, Surrey UK.                                                      
  All rights reserved.                                                     
                                                                            
-  http://www.mgateway.com                                                  
+  https://www.mgateway.com                                                  
   Email: rtweed@mgateway.com                                               
                                                                            
                                                                            
